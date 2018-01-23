@@ -30,7 +30,7 @@ public class CalculateFragment extends Fragment implements View.OnClickListener 
     private String displayString = "";
     private double num1ADouble = 0, displayADouble;
     private String tag = "23JanV1";
-    private boolean addABoolean = false;
+    private boolean addABoolean = false, minusABoolean = false;
 
 
     @Override
@@ -236,15 +236,21 @@ public class CalculateFragment extends Fragment implements View.OnClickListener 
                 if (addABoolean) {
                     num1ADouble = num1ADouble + displayADouble;
                     addABoolean = false;
+                } else if (minusABoolean) {
+                    num1ADouble = num1ADouble - displayADouble;
+                    minusABoolean = false;
                 }
 
                 Log.d(tag, "num1Adouble after if ==> " + num1ADouble);
 
                 textView.setText(Double.toString(num1ADouble));
+                displayString = "0";
 
                 break;
 
             case R.id.btnMinus:
+
+                minusABoolean = true;
 
                 if (num1ADouble == 0) {
 
@@ -270,9 +276,26 @@ public class CalculateFragment extends Fragment implements View.OnClickListener 
 
     private void clearDisplay() {
 
-        textView.setText("");
-        displayString = "";
-        displayADouble = 0;
+        if (addABoolean) {
+
+            textView.setText("");
+            displayString = "";
+            displayADouble = 0;
+
+        } else if (minusABoolean) {
+
+            textView.setText("");
+            displayString = "";
+            displayADouble = 0;
+
+        } else {
+
+            textView.setText("");
+            displayString = "";
+            displayADouble = 0;
+            num1ADouble = 0;
+
+        }
 
     }
 
